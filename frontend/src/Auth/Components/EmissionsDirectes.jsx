@@ -78,6 +78,31 @@ const Styles = {
         lineHeight: '20px',
         textAlign: 'center',
     },
+    dialogContent: {
+        fontFamily: 'Inter, sans-serif',
+    },
+    rechercherText: {
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '16px',
+        fontWeight: 400,
+        lineHeight: '20px',
+        textAlign: 'center',
+      },
+      annulerText: {
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '16px',
+        fontWeight: 400,
+        lineHeight: '20px',
+        textAlign: 'center',
+        color: '#D62828',
+      },
+      validerText: {
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '16px',
+        fontWeight: 400,
+        lineHeight: '20px',
+        textAlign: 'center',
+      },
 };
 
 const emissionsList = [
@@ -140,8 +165,10 @@ function EmissionsDirectes() {
             ))}
 
             
-            <Dialog open={openDialog} onClose={handleClose} fullWidth maxWidth="md" borderRadius={15}>
-                <DialogContent>
+            <Dialog open={openDialog} onClose={handleClose} fullWidth maxWidth="md" borderRadius={15} sx={{
+        borderRadius: 15,
+        fontFamily: 'Inter, sans-serif',}}>
+                <DialogContent sx={Styles.dialogContent}>
                     <Grid container spacing={2} sx={{ paddingLeft: '16px', paddingRight: '16px' }}>
                         {selectedEmissionIndex !== null && (
                             <Grid item xs={12} md={12}>
@@ -171,7 +198,7 @@ function EmissionsDirectes() {
                         </Grid>
 
                         <Grid item xs={12} md={12}>
-                            <Button style={Styles.rechercheButton}>Rechercher</Button>
+                            <Button style={Styles.rechercheButton}><Typography  style={Styles.rechercherText}>Rechercher</Typography></Button>
                         </Grid>
                         <Grid item xs={12} md={12} style={{ overflow: 'auto' }}>
                             <Paper style={{ height: '152px', borderRadius: '15px', padding: '20px', backgroundColor: '#F2F4F8' }}>
@@ -183,11 +210,13 @@ function EmissionsDirectes() {
                                 <Grid item xs={6} md={6}>
                                     <Button variant="contained" fullWidth style={{ ...Styles.annulerButton }}>
 
-                                        Annuler
+                                    <Typography  style={Styles.annulerText}>Annuler</Typography>
                                     </Button>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
-                                    <Button variant="contained" fullWidth style={{ ...Styles.validerButton }} onClick={handleClose}>Valider</Button>
+                                    <Button variant="contained" fullWidth style={{ ...Styles.validerButton }} onClick={handleClose}>
+                                    <Typography  style={Styles.validerText}>Valider</Typography>
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </Grid>
