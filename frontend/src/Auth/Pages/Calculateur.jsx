@@ -95,11 +95,11 @@ function Calculateur() {
 
 
     return (
-    <Grid container width="100%">
+    <Grid container >
         <Grid item md={2.1} sx={{ height: '100vh', display: { xs: 'none', md: 'block' }  }}>
             <SideBar />
         </Grid>
-        <Grid item md={9.9}>
+        <Grid item md={9.9} xs={12}>
         <Grid container height={'auto'}>
             <Grid item height={'64px'} xs={12} sx={{fontFamily : 'Inter, sans-serif'}}>
                 <AppBarComponent title="Calculateur" />
