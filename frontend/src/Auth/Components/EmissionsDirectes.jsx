@@ -103,6 +103,14 @@ const Styles = {
         lineHeight: '20px',
         textAlign: 'center',
       },
+      ajouterText: {
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '14px',
+        fontWeight: 400,
+        lineHeight: '16px',
+        textAlign: 'center',
+        color: '#003049',
+      },
 };
 
 const emissionsList = [
@@ -157,7 +165,7 @@ function EmissionsDirectes() {
                         </Grid>
                         <Grid item xs={12} md={3} sx={{ textAlign: 'center' }}>
                             <Button style={Styles.ajouterActiviteButton} onClick={() => handleClickOpen(index)}>
-                                Ajouter
+                                <Typography  style={Styles.ajouterText}>Ajouter</Typography>
                             </Button>
                         </Grid>
                     </Grid>
