@@ -78,6 +78,40 @@ const Styles = {
         lineHeight: '20px',
         textAlign: 'center',
     },
+    rechercherText: {
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '16px',
+        fontWeight: 400,
+        lineHeight: '20px',
+        textAlign: 'center',
+        textTransform: 'none',
+      },
+      annulerText: {
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '16px',
+        fontWeight: 400,
+        lineHeight: '20px',
+        textAlign: 'center',
+        color: '#D62828',
+        textTransform: 'none',
+      },
+      validerText: {
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '16px',
+        fontWeight: 400,
+        lineHeight: '20px',
+        textAlign: 'center',
+        textTransform: 'none',
+      },
+      ajouterText: {
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '14px',
+        fontWeight: 400,
+        lineHeight: '16px',
+        textAlign: 'center',
+        color: '#003049',
+        textTransform: 'none',
+      },
 };
 
 const deplacementList = [
@@ -128,7 +162,7 @@ function Energie() {
                         </Grid>
                         <Grid item xs={12} md={3} sx={{ textAlign: 'center' }}>
                             <Button style={Styles.ajouterActiviteButton} onClick={() => handleClickOpen(index)}>
-                                Ajouter
+                            <Typography  style={Styles.ajouterText}>Ajouter Activité</Typography>
                             </Button>
                         </Grid>
                     </Grid>
@@ -168,7 +202,7 @@ function Energie() {
                         </Grid>
 
                         <Grid item xs={12} md={12}>
-                            <Button style={Styles.rechercheButton}>Rechercher</Button>
+                            <Button style={Styles.rechercheButton}><Typography  style={Styles.rechercherText}>Rechercher</Typography></Button>
                         </Grid>
                         <Grid item xs={12} md={12} style={{ overflow: 'auto' }}>
                             <Paper style={{ height: '152px', borderRadius: '15px', padding: '20px', backgroundColor: '#F2F4F8' }}>
@@ -180,11 +214,11 @@ function Energie() {
                                 <Grid item xs={6} md={6}>
                                     <Button variant="contained" fullWidth style={{ ...Styles.annulerButton }}>
 
-                                        Annuler
+                                       <Typography  style={Styles.annulerText}>Annuler</Typography>
                                     </Button>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
-                                    <Button variant="contained" fullWidth style={{ ...Styles.validerButton }} onClick={handleClose}>Valider</Button>
+                                    <Button variant="contained" fullWidth style={{ ...Styles.validerButton }} onClick={handleClose}><Typography  style={Styles.validerText}>Valider</Typography></Button>
                                 </Grid>
                             </Grid>
                         </Grid>

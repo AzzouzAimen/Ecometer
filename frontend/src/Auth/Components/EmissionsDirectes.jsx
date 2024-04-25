@@ -87,6 +87,7 @@ const Styles = {
         fontWeight: 400,
         lineHeight: '20px',
         textAlign: 'center',
+        textTransform: 'none',
       },
       annulerText: {
         fontFamily: 'Inter, sans-serif',
@@ -95,6 +96,7 @@ const Styles = {
         lineHeight: '20px',
         textAlign: 'center',
         color: '#D62828',
+        textTransform: 'none',
       },
       validerText: {
         fontFamily: 'Inter, sans-serif',
@@ -102,6 +104,7 @@ const Styles = {
         fontWeight: 400,
         lineHeight: '20px',
         textAlign: 'center',
+        textTransform: 'none',
       },
       ajouterText: {
         fontFamily: 'Inter, sans-serif',
@@ -110,6 +113,7 @@ const Styles = {
         lineHeight: '16px',
         textAlign: 'center',
         color: '#003049',
+        textTransform: 'none',
       },
 };
 
@@ -165,7 +169,7 @@ function EmissionsDirectes() {
                         </Grid>
                         <Grid item xs={12} md={3} sx={{ textAlign: 'center' }}>
                             <Button style={Styles.ajouterActiviteButton} onClick={() => handleClickOpen(index)}>
-                                <Typography  style={Styles.ajouterText}>Ajouter</Typography>
+                                <Typography  style={Styles.ajouterText}>Ajouter Activité</Typography>
                             </Button>
                         </Grid>
                     </Grid>
