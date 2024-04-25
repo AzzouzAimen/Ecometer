@@ -65,11 +65,13 @@ const Styles = {
         borderRadius: '15px',
         backgroundColor: '#FFFFFF',
         color: '#D62828',
+        height: '48px',
     },
     validerButton: {
         fontFamily: 'Inter, sans-serif',
         background: '#003049',
         borderRadius: '15px',
+        height: '48px',
     },
     Button_Link_Medium: {
         fontFamily: 'Inter, sans-serif',

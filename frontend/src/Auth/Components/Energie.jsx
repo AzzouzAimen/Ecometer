@@ -65,11 +65,13 @@ const Styles = {
         borderRadius: '15px',
         backgroundColor: '#FFFFFF',
         color: '#D62828',
+        height: '48px',
     },
     validerButton: {
         fontFamily: 'Inter, sans-serif',
         background: '#003049',
         borderRadius: '15px',
+        height: '48px',
     },
     Button_Link_Medium: {
         fontFamily: 'Inter, sans-serif',
@@ -191,7 +193,7 @@ function Energie() {
                         </Grid>
 
                         <Grid item xs={12} md={12}>
-                               <Typography  style={Styles.rechercherText}>Rechercher</Typography>
+                        <Button style={Styles.rechercheButton}><Typography  style={Styles.rechercherText}>Rechercher</Typography></Button>
                         </Grid>
                         <Grid item xs={12} md={12} style={{ overflow: 'auto' }}>
                             <Paper style={{ height: '152px', borderRadius: '15px', padding: '20px', backgroundColor: '#F2F4F8' }}>
