@@ -13,7 +13,7 @@ function App() {
 
   return (
     <section>
-      <Calculateur />
+      <Acceuil />
     </section> 
   );
 }
