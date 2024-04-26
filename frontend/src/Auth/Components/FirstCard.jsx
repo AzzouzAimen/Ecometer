@@ -58,7 +58,7 @@ const FirstCard = () => {
 
   return (
     <Grid container justifyContent="center" alignItems="center" height="auto">
-      <Grid item xs={12} md={10.94}>
+      <Grid item xs={12} md={10.94} >
         <Grid container height="auto" sx={{ marginTop: { md: '40px' } }}>
           <Grid item xs={12} md={12} sx={{ height: 'auto', marginBottom: '16px' }}>
             <Grid container height='auto'>
@@ -78,18 +78,18 @@ const FirstCard = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={12} sx={{ marginBottom: { md: '25px' } }}>
-          <Grid container spacing={2}>
-              <Grid item xs={12} md={4}>
+          <Grid container spacing={2} justifyContent="center">
+              <Grid item xs={9} md={4}>
                 <Button variant="outlined" color="primary" sx={{ ...styles.button }} fullWidth>
                   Commencer le bilan de Carbone
                 </Button>
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={9} md={4}>
                 <Button variant="outlined" color="primary" sx={{ ...styles.button }} fullWidth>
                   Consulter les Bilans précédents
                 </Button>
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={9} md={4}>
                 <Button variant="outlined" color="primary" sx={{ ...styles.button }} fullWidth>
                   Etalblissement Et Suivi D'objectifs
                 </Button>
