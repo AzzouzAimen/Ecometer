@@ -96,7 +96,7 @@ function Calculateur() {
 
     return (
     <Grid container >
-        <Grid item md={2.1} sx={{ height: '100vh', display: { xs: 'none', md: 'block' }  }}>
+        <Grid item md={2.1} sx={{ minHeight: '100vh', display: { xs: 'none', md: 'block' }  }}>
             <SideBar />
         </Grid>
         <Grid item md={9.9} xs={12}>

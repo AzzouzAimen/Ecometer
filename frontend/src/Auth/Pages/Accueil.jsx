@@ -11,9 +11,9 @@ function Acceuil() {
 
     return (
         <Grid container>
-            <Grid item md={2.1} sx={{ height: '100vh', display: { xs: 'none', md: 'block' } }}>
-                <SideBar />
-            </Grid>
+            <Grid item md={2.1} sx={{ minHeight: '100vh', display: { xs: 'none', md: 'block' }  }}>
+            <SideBar />
+        </Grid>
             <Grid item md={9.9} xs={12}>
                 <Grid container height={'auto'} justifyContent="center" >
                     <Grid item height={'64px'} xs={12} sx={{ fontFamily: 'Inter, sans-serif' }}>
@@ -40,7 +40,7 @@ function Acceuil() {
                                                             
                                                             <Grid item justifyContent="center" >
                                                                 <Grid container>
-                                                                        < Grid item md={6} xs={12}>
+                                                                        < Grid item md={6} xs={12} >
                                                                              <CustomBarChart />
                                                                         </Grid>
                                                                 <Grid item xs={12} md={4} alignItems="center" sx={{ marginTop: { md: '40px' } }}>
