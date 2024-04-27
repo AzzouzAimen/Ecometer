@@ -16,6 +16,7 @@ const FirstCard = () => {
       textAlign: 'center',
       textTransform : 'none',
       color : ' #0F172A',
+      padding : '0px',
       
     },
     circle: {

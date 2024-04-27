@@ -5,6 +5,8 @@ import SideBar from '../Components/SideBar';
 import FirstCard from '../Components/FirstCard';
 import CustomBarChart from '../Components/CustomBarChart';
 import Legend from '../Components/Lengend';
+
+
 function Acceuil() {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -13,6 +15,7 @@ function Acceuil() {
         <Grid container>
             <Grid item md={2.1} sx={{ minHeight: '100vh', display: { xs: 'none', md: 'block' }  }}>
             <SideBar />
+            
         </Grid>
             <Grid item md={9.9} xs={12}>
                 <Grid container height={'auto'} justifyContent="center" >
