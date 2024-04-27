@@ -90,7 +90,7 @@ const FirstCard = () => {
                 </Button>
               </Grid>
               <Grid item xs={9} md={4}>
-                <Button variant="outlined" color="primary" sx={{ ...styles.button }} fullWidth>
+                <Button variant="outlined" color="primary" sx={{ ...styles.button  , marginBottom : {xs : '10px'}}} fullWidth>
                   Etalblissement Et Suivi D'objectifs
                 </Button>
               </Grid>
