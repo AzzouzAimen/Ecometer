@@ -43,7 +43,7 @@ function Acceuil() {
                                                                         < Grid item md={6} xs={12} >
                                                                              <CustomBarChart />
                                                                         </Grid>
-                                                                <Grid item xs={12} md={4} alignItems="center" sx={{ marginTop: { md: '40px' } }}>
+                                                                <Grid item xs={12} md={4} alignItems="center" sx={{ marginTop: { md: '40px' } , marginLeft: { md: '40px' } }}>
                                                                     <Legend/>
                                                                 </Grid>
                                                                 
