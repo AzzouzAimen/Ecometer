@@ -36,7 +36,7 @@ const Styles = {
    TotalText2 : {
     fontFamily : 'Eudoxus , sans-serif',
     fontWeight : '500',
-    fontSize : '20px',
+    fontSize : '30px',
     lineHeight : '70px',
    },
 
@@ -47,6 +47,29 @@ const Styles = {
     lineHeight : '58px',
     color : '#D62828',
    },
+
+   PartialText : {
+     fontFamily : 'Eudoxus , sans-serif',
+    fontWeight : '500',
+    fontSize : '48px',
+    lineHeight : '40px',
+    color : '#000000',
+   },
+   PartialText2 : {
+    fontFamily : 'Eudoxus , sans-serif',
+    fontWeight : '500',
+    fontSize : '23px',
+    lineHeight : '40px',
+    color : '#000000',
+
+   },
+   PartialSubText : {
+    fontFamily : 'Eudoxus , sans-serif',
+    fontWeight : '700',
+    fontSize : '20px',
+    lineHeight : '58px',
+    color : '#D62828',
+   }
 }
 
 const Rapport = () => {
@@ -93,6 +116,7 @@ const Rapport = () => {
                                                 <Grid item md={10.01}>
 
                                                     <Grid container direction={'column'} height={'auto'} >
+                                                        
                                                         <Grid item >
                                                             <Grid container>
                                                                 <Grid item md={6} sx={{marginBottom: { xs: '25px' } , marginTop : { md : '10px'}}}> 
@@ -106,6 +130,7 @@ const Rapport = () => {
                                                         <Grid item > 
                                                             <Typography style={Styles.TotalSubText} sx={{textAlign: { xs: 'center', md: 'initial' }}}>EMISSIONS TOTALES</Typography>     
                                                         </Grid>
+
                                                     </Grid>
                                               </Grid>
                                             </Grid>
@@ -120,9 +145,41 @@ const Rapport = () => {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item md={10.63} height= 'auto'>
+                                    <Grid item md={10.63} height='auto'>
+            {/* Premier Grid Item */}
+            <Grid container >
+                <Grid item md={5.95}>
+                    <Grid container>
+                        <Grid item md={7.61} xs={12} style={{ background : '#FFD5D5', height: 'auto' }} >
 
-                                    </Grid>
+                                                    <Grid container direction={'column'} height={'auto'} >
+                                                        <Grid item >
+                                                            <Grid container>
+                                                                <Grid item md={6} sx={{marginBottom: { xs: '25px' } , marginTop : { md : '10px'}}}> 
+                                                                  <Typography style={Styles.PartialText}>43,924.5</Typography>      
+                                                                </Grid>
+                                                                <Grid item md={6} textAlign={'center'} sx={{marginTop : { md : '10px'}}}> 
+                                                                  <Typography style={Styles.PartialText2}>tCO2e</Typography>      
+                                                                </Grid> 
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item > 
+                                                            <Typography style={Styles.PartialSubText} sx={{textAlign: { xs: 'center', md: 'initial' }}}>SCOPE 1</Typography>     
+                                                        </Grid>
+                                                    </Grid>
+
+                        </Grid>
+                        <Grid item md={7.61} xs={12} style={{ backgroundColor: 'blue', height: '75px' }} />
+                        <Grid item md={7.61} xs={12} style={{ backgroundColor: 'green', height: '75px' }} />
+                        <Grid item md={7.61} xs={12} style={{ backgroundColor: 'yellow', height: '75px' }} />
+                        </Grid>
+                </Grid>
+                <Grid item md={5.65} xs={12} style={{ backgroundColor: 'purple', height: '75px' }} />
+                </Grid>
+            </Grid>
+
+            {/* Deuxième Grid Item */}
+           
                                 
                             </Grid>
                         </Paper>   

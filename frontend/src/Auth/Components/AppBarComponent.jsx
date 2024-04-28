@@ -3,6 +3,7 @@ import { AppBar, Box, Toolbar, Typography, IconButton, Menu, MenuItem, useMediaQ
 import MenuIcon from '@mui/icons-material/Menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { IoSettingsOutline } from "react-icons/io5";
 
 const pages = ['Accueil', 'Calculateur', 'Rapport', 'Objectifs'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -47,20 +48,24 @@ function AppBarComponent({ title }) {
                     </IconButton>
                 )}
 
-                <Typography
-                    variant="h6"
-                    component="div"
-                    sx={{
-                        fontWeight: 700,
-                        fontSize: '25px',
-                        lineHeight: '24px',
-                        textAlign: 'center',
-                        color: '#003049',
-                        margin: '0 20px', 
-                    }}
-                >
-                    {title}
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    
+
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{
+                            fontWeight: 700,
+                            fontSize: '25px',
+                            lineHeight: '24px',
+                            textAlign: 'center',
+                            color: '#003049',
+                            margin: '0 20px', 
+                        }}
+                    >
+                        {title}
+                    </Typography>
+                </Box>
 
                 {!isSmallScreen && (
                     <Box
@@ -90,6 +95,18 @@ function AppBarComponent({ title }) {
                 )}
 
                 <Box>
+                <IconButton
+                        size="large"
+                        edge="end"
+                        aria-label="account of current user" 
+
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenuOpen}
+                    >
+                        <IoSettingsOutline style={{ color: '#1F263E', marginRight:{ md :' 41px' , xs : '21px' } }} />
+                    </IconButton>
+
                     <IconButton
                         size="large"
                         edge="end"
@@ -100,7 +117,7 @@ function AppBarComponent({ title }) {
                     >
                         <FontAwesomeIcon icon={faUserCircle} style={{ color: '#F68002' }} />
                     </IconButton>
-
+                    
                     <Menu
                         id="menu-appbar"
                         anchorEl={anchorEl}
