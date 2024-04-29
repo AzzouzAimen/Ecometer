@@ -14,7 +14,7 @@ function App() {
 
   return (
     <section>
-      <Calculateur />
+      <Rapport />
     </section> 
   );
 }
