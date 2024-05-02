@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Typography, Grid, Button, Paper, Dialog, DialogContent } from '@mui/material';
-
+import { Box, Typography, Grid, Button, Paper, Dialog, DialogContent, Checkbox, FormControlLabel  ,TextField} from '@mui/material';
+import CroixIcon from './CroixIcon';
 const Styles = {
     contenuEtape: {
         fontSize: '18px',
@@ -39,7 +39,7 @@ const Styles = {
         backgroundPosition: 'right 10px top 50%',
         backgroundSize: '12px',
         cursor: 'pointer',
-        color: '#4D4D4D', 
+        color: '#4D4D4D',
     },
     customTitle: {
         fontFamily: 'Inter, sans-serif',
@@ -80,9 +80,6 @@ const Styles = {
         lineHeight: '20px',
         textAlign: 'center',
     },
-    dialogContent: {
-        fontFamily: 'Inter, sans-serif',
-    },
     rechercherText: {
         fontFamily: 'Inter, sans-serif',
         fontSize: '16px',
@@ -119,42 +116,65 @@ const Styles = {
       },
 };
 
-const emissionsList = [
-    {
-        label: "émissions directes des sources fixes de combustion",
-        dialogueOptions: [{ label: 'Combustibles', value: 1 }]
-    },
-    {
-        label: "émissions directes des sources mobiles de combustion",
-        dialogueOptions: [{ label: 'Combustibles', value: 1 }]
-    },
-    {
-        label: "émissions directes des procédés hors énergie",
-        dialogueOptions: [{ label: 'Process et émissions fugitives', value: 1 }]
-    },
-    {
-        label: "émissions directes fugitives",
-        dialogueOptions: [{ label: 'Process et émissions fugitives', value: 1 }]
-    },
-    {
-        label: "émission issues de la biomasse (sols et forêts)",
-        dialogueOptions: [{ label: 'UTCF', value: 1 }]
-    }
-];
-
 function EmissionsDirectes() {
+    const [emissionsList, setEmissionsList] = useState([
+        {
+            label: "émissions directes des sources fixes de combustion",
+            dialogueOptions: [{ label: 'Combustibles', value: 1 }],
+            selectedOptions: []
+        },
+        {
+            label: "émissions directes des sources mobiles de combustion",
+            dialogueOptions: [{ label: 'Combustibles', value: 1 }],
+            selectedOptions: []
+        },
+        {
+            label: "émissions directes des procédés hors énergie",
+            dialogueOptions: [{ label: 'Process et émissions fugitives', value: 1 }],
+            selectedOptions: []
+        },
+        {
+            label: "émissions directes fugitives",
+            dialogueOptions: [{ label: 'Process et émissions fugitives', value: 1 }],
+            selectedOptions: []
+        },
+        {
+            label: "émission issues de la biomasse (sols et forêts)",
+            dialogueOptions: [{ label: 'UTCF', value: 1 }],
+            selectedOptions: []
+        }
+    ]); 
     const [selectedEmissionIndex, setSelectedEmissionIndex] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
     const handleClickOpen = (index) => {
         setSelectedEmissionIndex(index);
         setOpenDialog(true);
+        console.log("aaaa : ", index);
     };
 
     const handleClose = () => {
         setOpenDialog(false);
     };
 
+    const handleCheckboxChange = (optionLabel) => {
+        setSelectedOptions(prevOptions => [...prevOptions, optionLabel]);c
+    };
+    const handleValider = () => {
+        const updatedEmissionsList = [...emissionsList];
+        updatedEmissionsList[selectedEmissionIndex].selectedOptions.push(...selectedOptions);
+        setEmissionsList(updatedEmissionsList);
+        setSelectedOptions([]);
+        setOpenDialog(false);
+    };
+    const SupprimerSelectedOption = (optionToRemove) => {
+        console.log("Option à supprimer :", optionToRemove);
+        console.log("Index de l'émission sélectionnée :", selectedEmissionIndex);
+        const updatedEmissionsList = [...emissionsList];
+        updatedEmissionsList[selectedEmissionIndex].selectedOptions = updatedEmissionsList[selectedEmissionIndex].selectedOptions.filter(option => option !== optionToRemove);
+        setEmissionsList(updatedEmissionsList);
+    };
     return (
         <div>
             {emissionsList.map((emission, index) => (
@@ -171,17 +191,64 @@ function EmissionsDirectes() {
                         </Grid>
                         <Grid item xs={12} md={3} sx={{ textAlign: 'center' }}>
                             <Button style={Styles.ajouterActiviteButton} onClick={() => handleClickOpen(index)}>
-                                <Typography  style={Styles.ajouterText}>Ajouter Activité</Typography>
+                                <Typography style={Styles.ajouterText}>Ajouter Activité</Typography>
                             </Button>
+                        </Grid>
+                        <Grid item xs={12} md={12}>
+                        {emission.selectedOptions && emission.selectedOptions.length > 0 &&
+                                <Grid style={{marginTop: '15px' }}>
+                                    {emission.selectedOptions.map((option, optionIndex) => (
+                                      <Grid container  sx={{ border: '1px solid black', borderRadius: '15px' , marginBottom : '15px' , padding : '20px' ,borderColor : '#6F6C8F'}}>
+                                            <Grid item md={12}>
+                                                <Grid container>  
+                                                    <Grid item xs={12} md={12} sx={{marginBottom : '15px' ,display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                        <Typography key={optionIndex} style={Styles.contenuEtape}>{option}</Typography>
+                                                        <CroixIcon onClick={() => SupprimerSelectedOption(option)} />
+                                                    </Grid>
+                                                    <Grid item md={1.6} xs={12} container  alignItems="center" style={{ marginTop: '-8px' }}>
+                                                        <Typography style={Styles.contenuEtape}>
+                                                            Quantité :
+                                                        </Typography>
+                                                    </Grid>
+
+
+
+
+                                                    <Grid item xs={12} md={10.4}>
+                                                    <TextField 
+                                                        variant="outlined" 
+                                                        fullWidth 
+                                                        sx={{ 
+                                                            borderRadius: '15px',
+                                                            mt: 1, 
+                                                            mb: 2, 
+                                                            '& .MuiOutlinedInput-notchedOutline': { 
+                                                                borderColor: '#969696 !important', // Couleur de la bordure
+                                                                borderRadius: '15px',
+                                                            },
+                                                            '&:hover .MuiOutlinedInput-notchedOutline': { 
+                                                                borderColor: '#969696 !important', // Couleur de la bordure en survol
+                                                                borderRadius: '15px',
+                                                            },
+                                                            '& .Mui-focused .MuiOutlinedInput-notchedOutline': { 
+                                                                borderColor: '#969696 !important', // Couleur de la bordure en focus
+                                                                borderRadius: '15px',
+                                                            }
+                                                        }} 
+                                                    />
+                                                    </Grid>
+                                                    </Grid>       
+                                            </Grid> 
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            }
                         </Grid>
                     </Grid>
                 </Box>
             ))}
 
-            
-            <Dialog open={openDialog} onClose={handleClose} fullWidth maxWidth="md" borderRadius={15} sx={{
-        borderRadius: 15,
-        fontFamily: 'Inter, sans-serif',}}>
+            <Dialog open={openDialog} onClose={handleClose} fullWidth maxWidth="md" borderRadius={15} sx={{ borderRadius: '15px', fontFamily: 'Inter, sans-serif'}}>
                 <DialogContent sx={Styles.dialogContent}>
                     <Grid container spacing={2} sx={{ paddingLeft: '16px', paddingRight: '16px' }}>
                         {selectedEmissionIndex !== null && (
@@ -194,7 +261,7 @@ function EmissionsDirectes() {
                                 </select>
                             </Grid>
                         )}
-                        <Grid item xs={12} md={12}>
+                         <Grid item xs={12} md={12}>
                             <Typography variant="h6" style={Styles.customTitle}>Catégorie 2</Typography>
                             <select style={{ ...Styles.customSelect, width: '100%' }}>
                                 <option value={1}>Option 1</option>
@@ -210,37 +277,46 @@ function EmissionsDirectes() {
                                 <option value={3}>Option 3</option>
                             </select>
                         </Grid>
-
                         <Grid item xs={12} md={12}>
                             <Button style={Styles.rechercheButton}><Typography  style={Styles.rechercherText}>Rechercher</Typography></Button>
                         </Grid>
                         <Grid item xs={12} md={12} style={{ overflow: 'auto' }}>
                             <Paper style={{ height: '152px', borderRadius: '15px', padding: '20px', backgroundColor: '#F2F4F8' }}>
-                                
+                                <FormControlLabel
+                                    control={<Checkbox onChange={(event) => handleCheckboxChange(event.target.value)} />}
+                                    label="Option 1"
+                                    value="Option 1"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox onChange={(event) => handleCheckboxChange(event.target.value)} />}
+                                    label="Option 2"
+                                    value="Option 2"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox onChange={(event) => handleCheckboxChange(event.target.value)} />}
+                                    label="Option 3"
+                                    value="Option 3"
+                                />
                             </Paper>
                         </Grid>
                         <Grid item xs={12} md={12}>
                             <Grid container spacing={3}>
                                 <Grid item xs={6} md={6}>
                                     <Button variant="contained" fullWidth style={{ ...Styles.annulerButton }}>
-
-                                    <Typography  style={Styles.annulerText}>Annuler</Typography>
+                                        <Typography  style={Styles.annulerText}>Annuler</Typography>
                                     </Button>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
-                                    <Button variant="contained" fullWidth style={{ ...Styles.validerButton }} onClick={handleClose}>
-                                    <Typography  style={Styles.validerText}>Valider</Typography>
+                                    <Button variant="contained" fullWidth style={{ ...Styles.validerButton }} onClick={handleValider}>
+                                        <Typography  style={Styles.validerText}>Valider</Typography>
                                     </Button>
                                 </Grid>
                             </Grid>
                         </Grid>
 
                     </Grid>
-
                 </DialogContent>
-
             </Dialog>
-
         </div>
     );
 }

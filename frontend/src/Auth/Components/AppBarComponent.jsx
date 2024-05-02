@@ -4,8 +4,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { IoSettingsOutline } from "react-icons/io5";
-
-const pages = ['Accueil', 'Calculateur', 'Rapport', 'Objectifs'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const styles = {
@@ -66,33 +64,6 @@ function AppBarComponent({ title }) {
                         {title}
                     </Typography>
                 </Box>
-
-                {!isSmallScreen && (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            flexGrow: 1,
-                        }}
-                    >
-                        {pages.map((page, index) => (
-                            <Typography
-                                key={index}
-                                variant="body1"
-                                sx={{
-                                    mx: 2,
-                                    margin: '0 25px', 
-                                    fontWeight: 400,
-                                    fontSize: '16px',
-                                    lineHeight: '24px',
-                                }}
-                            >
-                                {page}
-                            </Typography>
-                        ))}
-                    </Box>
-                )}
 
                 <Box>
                 <IconButton

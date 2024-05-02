@@ -1,22 +1,24 @@
-
-
-import './App.css';
-import Navbar from './Navbar.jsx';
-import Hero from './Hero.jsx';
-import Sectionii from './Sectionii.jsx';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './Login/Pages/Login.jsx';
 import Calculateur from './Auth/Pages/Calculateur.jsx';
-import EmissionsDirectes from './Auth/Components/EmissionsDirectes.jsx';
-import AppBarComponent from './Auth/Components/AppBarComponent.jsx';
 import Acceuil from './Auth/Pages/Accueil.jsx';
 import Rapport from './Auth/Pages/Rapport.jsx';
-function App() {
-  
+import './App.css';
+
+const App = () => {
+  const isConnected = true; // Gérer l'état de connexion ici
 
   return (
-    <section>
-      <Rapport />
-    </section> 
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={isConnected ? <Acceuil /> : <Navigate to="/login" replace />} />
+        <Route path="/calculateur" element={isConnected ? <Calculateur /> : <Navigate to="/login" replace />} />
+        <Route path="/rapport" element={isConnected ? <Rapport /> : <Navigate to="/login" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

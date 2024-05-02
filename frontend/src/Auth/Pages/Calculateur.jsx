@@ -110,7 +110,7 @@ function Calculateur() {
                     </Grid>
                     <Grid item height={'auto'} xs={12} sx={{ background: '#F2F4F8', minHeight: 'calc(100vh - 64px)', fontFamily: 'Inter, sans-serif' }}>
 
-                        <Grid container justifyContent={'center'} marginTop={'50px'}>
+                        <Grid container justifyContent={'center'} marginTop={'70px'}>
                             <Grid item xs={12} md={9.77}>
                                 <Paper elevation={3} sx={{ minHeight: 'fit-content', borderRadius: '15px' }}>
                                     <Grid container rowSpacing={0} justifyContent="center" sx={{ minHeight: '100%', p: 2 }}>
@@ -178,7 +178,7 @@ function Calculateur() {
                                                     style={Styles.backButton}
                                                 >
                                                     <Typography style={Styles.buttonText}>
-                                                        Back
+                                                        Retour
                                                 </Typography>
                                                 </Button>
                                                 <Button onClick={activeStep === steps.length - 1 ? handleReset : handleNext} style={Styles.suivantButton}>
