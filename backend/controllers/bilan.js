@@ -58,10 +58,13 @@ const updateAndCalculateBilan = async (req, res) => {
     for (let i = 0; i < selectedCategoryElements.length; i++) {
       const categoryElements = selectedCategoryElements[i];
       if (categoryElements.length > 0) {
-          const { emissions, weightedAverageUncertainty} = await calculateEmissionsPost(carbonFootprint.emissionPosts[i].category, categoryElements);
+          const { emissions, weightedAverageUncertainty, CO2, CH4, N2O} = await calculateEmissionsPost(carbonFootprint.emissionPosts[i].category, categoryElements);
           carbonFootprint.emissionPosts[i].emissions = emissions;
           carbonFootprint.emissionPosts[i].uncertainty = weightedAverageUncertainty;
           carbonFootprint.emissionPosts[i].categoryElements = categoryElements;
+          carbonFootprint.emissionPosts[i].CO2 = CO2;
+          carbonFootprint.emissionPosts[i].CH4 = CH4;
+          carbonFootprint.emissionPosts[i].N2O = N2O;
       }
   }
     
@@ -83,6 +86,9 @@ const calculateEmissionsPost = async (category , categoryElements) => {
   let emissions = 0;
   let totalValueTimesUncertainty = 0;
   let totalValue = 0;
+  let CO2 = 0;
+  let CH4 = 0;
+  let N2O = 0;
   let i = 0;
   const Model = categoriesConnection.model(category);
   for (const element of categoryElements) {
@@ -94,13 +100,21 @@ const calculateEmissionsPost = async (category , categoryElements) => {
       const uncertainty = categoryElement.totalPostValue * uncertaintyPercentage*element.quantity;
       totalValueTimesUncertainty += uncertainty;
       totalValue += categoryElement.totalPostValue * element.quantity;
+      if(categoryElement.structure === "élément décomposé par gaz") {
+          //console.log("element décomposé par gaz");
+          CO2 += categoryElement.co2 * element.quantity;
+          CH4 += categoryElement.ch4 * element.quantity;
+          N2O += categoryElement.n2o * element.quantity;
+          //if (i == 1) {CO2 = "NC"}
+      } 
       i++;
   }
   if(totalValueTimesUncertainty !== 0 ){
       const weightedAverageUncertainty = totalValueTimesUncertainty / totalValue;
-      return { emissions, weightedAverageUncertainty};
+      return { emissions, weightedAverageUncertainty, CO2, CH4, N2O};
   }
-  return { emissions, weightedAverageUncertainty: 0};
+  //console.log("Co2", CO2);
+  return { emissions, weightedAverageUncertainty: 0, CO2, CH4, N2O};
   
 }
 
