@@ -8,6 +8,7 @@ const {
   getClientProfile,
   updateClientProfile,
   deleteClient,
+  updateClientPassword,
 } = require("../controllers/client");
 
 const router = express.Router();
@@ -27,6 +28,7 @@ router.get("/:clientId", getClientProfile);
 // UPDATE Routes
 
 router.put("/update-profile/", updateClientProfile);
+router.put("/update-password/", updateClientPassword);
 
 // DELETE Routes
 

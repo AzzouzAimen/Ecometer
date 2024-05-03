@@ -303,6 +303,34 @@ const updateClientProfile = async (req,res) => {
   }
 }
 
+// update client password
+const updateClientPassword = async (req,res) => {
+  const { clientId, oldPassword, newPassword } = req.body;
+  if (!isValidObjectId(clientId)) {
+    return res.status(400).json({ msg: "Invalid client ID" });
+  }
+  try {
+    const client = await Client.findById(clientId);
+    if (!client) {
+      return res.status(404).json({ msg: "Client not found" });
+    }
+    const isMatched = await client.comparePassword(oldPassword);
+    if (!isMatched) {
+      return res.status(400).json({ msg: "Invalid password" });
+    }
+    client.password = newPassword;
+    await client.save();
+    return res.status(200).json(client);
+  }
+  catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({ error: "Internal error" });
+  }
+
+}
+
+
+
 // delete a client
 
 const deleteClient = async (req,res) => {
@@ -344,5 +372,5 @@ module.exports = {
   getClientProfile,
   updateClientProfile,
   deleteClient,
-  
+  updateClientPassword,
 };
