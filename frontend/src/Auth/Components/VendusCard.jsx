@@ -89,7 +89,7 @@ const VendusCard = () => {
               {item.label}
             </Typography>
             <Grid container>
-              <Grid item md={1.8}>
+              <Grid item md={1.8} xs={12}>
                   <Grid container spacing = {1}>
                     <Grid item md={12}>
                         <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
@@ -99,9 +99,19 @@ const VendusCard = () => {
                     </Grid>
                   </Grid>
               </Grid>
-              <Grid item md={1.8}>
+              <Grid item md={1.8} xs={12}>
                 <Grid container spacing = {1}>
                     <Grid item md={12}>
+                        <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
+                    </Grid>
+                    <Grid item md={12} >
+                          <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '700' , fontSize : '16px'}}> 12.4</Typography>
+                    </Grid>
+                  </Grid>
+              </Grid>
+              <Grid item md={1.8} xs={12}>
+                <Grid container spacing = {1}>
+                    <Grid item md={12} >
                         <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
                     </Grid>
                     <Grid item md={12}>
@@ -109,17 +119,7 @@ const VendusCard = () => {
                     </Grid>
                   </Grid>
               </Grid>
-              <Grid item md={1.8}>
-                <Grid container spacing = {1}>
-                    <Grid item md={12}>
-                        <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
-                    </Grid>
-                    <Grid item md={12}>
-                          <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '700' , fontSize : '16px'}}> 12.4</Typography>
-                    </Grid>
-                  </Grid>
-              </Grid>
-              <Grid item md={1.8}>
+              <Grid item md={1.8} xs={12}>
                 <Grid container spacing = {1}>
                     <Grid item md={12}>
                         <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>

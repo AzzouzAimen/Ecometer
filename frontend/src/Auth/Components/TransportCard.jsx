@@ -97,7 +97,7 @@ const TransportCard = () => {
               {item.label}
             </Typography>
             <Grid container>
-              <Grid item md={1.8}>
+              <Grid item md={1.8} xs={12}>
                   <Grid container spacing = {1}>
                     <Grid item md={12}>
                         <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
@@ -107,7 +107,7 @@ const TransportCard = () => {
                     </Grid>
                   </Grid>
               </Grid>
-              <Grid item md={1.8}>
+              <Grid item md={1.8} xs={12}>
                 <Grid container spacing = {1}>
                     <Grid item md={12}>
                         <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
@@ -117,7 +117,7 @@ const TransportCard = () => {
                     </Grid>
                   </Grid>
               </Grid>
-              <Grid item md={1.8}>
+              <Grid item md={1.8} xs={12}>
                 <Grid container spacing = {1}>
                     <Grid item md={12}>
                         <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
@@ -127,7 +127,7 @@ const TransportCard = () => {
                     </Grid>
                   </Grid>
               </Grid>
-              <Grid item md={1.8}>
+              <Grid item md={1.8} xs={12}>
                 <Grid container spacing = {1}>
                     <Grid item md={12}>
                         <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
