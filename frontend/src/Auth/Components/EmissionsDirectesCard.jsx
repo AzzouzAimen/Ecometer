@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Grid, Typography } from '@mui/material';
+import { Paper, Grid, Typography, Stack } from '@mui/material';
 import Drop from './Drop';
 
 const circleStyle = {
@@ -21,9 +21,40 @@ const textValue = {
   fontWeight: '700',
   fontSize: '20px',
 };
-
+const subTextStyle = {
+  fontFamily: 'Inter , sans-serif',
+  fontWeight: '400',
+  fontSize: '16px',
+};
 const EmissionsDirectesCard = () => {
   const [isDropVisible, setIsDropVisible] = useState(false);
+  const [emissionsList, setEmissionsList] = useState([
+    {
+        label: "émissions directes des sources fixes de combustion",
+        dialogueOptions: [{ label: 'Combustibles', value: 1 }],
+        selectedOptions: []
+    },
+    {
+        label: "émissions directes des sources mobiles de combustion",
+        dialogueOptions: [{ label: 'Combustibles', value: 1 }],
+        selectedOptions: []
+    },
+    {
+        label: "émissions directes des procédés hors énergie",
+        dialogueOptions: [{ label: 'Process et émissions fugitives', value: 1 }],
+        selectedOptions: []
+    },
+    {
+        label: "émissions directes fugitives",
+        dialogueOptions: [{ label: 'Process et émissions fugitives', value: 1 }],
+        selectedOptions: []
+    },
+    {
+        label: "émission issues de la biomasse (sols et forêts)",
+        dialogueOptions: [{ label: 'UTCF', value: 1 }],
+        selectedOptions: []
+    }
+]);
 
   const toggleDrop = () => {
     setIsDropVisible(!isDropVisible);
@@ -63,9 +94,57 @@ const EmissionsDirectesCard = () => {
         </Grid>
       </Grid>
       <Grid>
-      {isDropVisible && ( <Typography style={textTitre}>
-          idrissszzdajdaz
-        </Typography>)}
+      {isDropVisible && (
+        <Stack direction="column" spacing={1} marginTop={{md : '25px'}}>
+          {emissionsList.map((item,index)=>(<React.Fragment key={index}>
+            <Typography style={subTextStyle}>
+              {item.label}
+            </Typography>
+            <Grid container>
+              <Grid item md={1.8}>
+                  <Grid container spacing = {1}>
+                    <Grid item md={12}>
+                        <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
+                    </Grid>
+                    <Grid item md={12}>
+                          <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '700' , fontSize : '16px'}}> 12.4</Typography>
+                    </Grid>
+                  </Grid>
+              </Grid>
+              <Grid item md={1.8}>
+                <Grid container spacing = {1}>
+                    <Grid item md={12}>
+                        <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
+                    </Grid>
+                    <Grid item md={12}>
+                          <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '700' , fontSize : '16px'}}> 12.4</Typography>
+                    </Grid>
+                  </Grid>
+              </Grid>
+              <Grid item md={1.8}>
+                <Grid container spacing = {1}>
+                    <Grid item md={12}>
+                        <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
+                    </Grid>
+                    <Grid item md={12}>
+                          <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '700' , fontSize : '16px'}}> 12.4</Typography>
+                    </Grid>
+                  </Grid>
+              </Grid>
+              <Grid item md={1.8}>
+                <Grid container spacing = {1}>
+                    <Grid item md={12}>
+                        <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '400' , fontSize : '14px'}}> CHO2</Typography>
+                    </Grid>
+                    <Grid item md={12}>
+                          <Typography sx={{fontFamily : 'Inter ,sans-serif' , fontWeight : '700' , fontSize : '16px'}}> 12.4</Typography>
+                    </Grid>
+                  </Grid>
+              </Grid>
+            </Grid>
+            </React.Fragment>))}
+        </Stack>
+      )}
       </Grid> 
     </Paper>
   );

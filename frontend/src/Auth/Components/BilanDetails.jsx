@@ -33,19 +33,19 @@ const BilanDetails = () => {
               <Grid item md={12} marginBottom={{ md : '35px' , xs : '20px'}}>
                 <EmissionsDirectesCard/>
               </Grid>
-              <Grid item md={12}>
+              <Grid item md={12}  marginBottom={{ md : '35px' , xs : '20px'}}>
                 <EnergieCard/>
               </Grid>
-              <Grid item md={12}>
+              <Grid item md={12} marginBottom={{ md : '35px' , xs : '20px'}}>
                 <TransportCard />  
               </Grid>
-              <Grid item md={12}>
+              <Grid item md={12} marginBottom={{ md : '35px' , xs : '20px'}}>
                 <AchetesCard />
               </Grid>
-              <Grid item md={12}>
+              <Grid item md={12} marginBottom={{ md : '35px' , xs : '20px'}}>
                 <VendusCard />
               </Grid>
-              <Grid item md={12}> 
+              <Grid item md={12} marginBottom={{ md : '35px' , xs : '20px'}}> 
                 <AutresCard/>
               </Grid>
             </Grid>
