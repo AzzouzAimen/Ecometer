@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Paper, Button, Box, Stepper, Step, StepLabel } from '@mui/material';
+import { Grid, Typography, Paper, Button, Box, Stepper, Step, StepLabel, Select } from '@mui/material';
 import { WhatshotOutlined, BatteryFullOutlined, DirectionsCarOutlined, ShoppingCartOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
 import AppBarComponent from '.././Components/AppBarComponent';
 import EmissionsDirectes from '../Components/EmissionsDirectes';
@@ -11,7 +11,7 @@ import AutresEmissions from '../Components/AutresEmissions';
 import SideBar from '../Components/SideBar';
 import CustomStepConnector from './CustomStepConnector';
 import ColorlibStepIcon from './ColorlibStepIcon';
-
+import Bilan from '../Components/Bilan';
 
 const Styles = {
     titreEtape: {
@@ -21,6 +21,7 @@ const Styles = {
         fontFamily: 'Inter, sans-serif',
         lineHeight: '47px',
     },
+
     contenuEtape: {
         fontSize: '18px',
         fontWeight: 400,
@@ -73,6 +74,100 @@ const Styles = {
 
 
 function Calculateur() {
+    const [showBilan, setShowBilan] = useState(false);
+    const [emissionsList, setEmissionsList] = useState([
+        {
+            label: "émissions directes des sources fixes de combustion",
+            dialogueOptions: [{ label: 'Combustibles', value: 1 }],
+            selectedOptions: []
+        },
+        {
+            label: "émissions directes des sources mobiles de combustion",
+            dialogueOptions: [{ label: 'Combustibles', value: 1 }],
+            selectedOptions: []
+        },
+        {
+            label: "émissions directes des procédés hors énergie",
+            dialogueOptions: [{ label: 'Process et émissions fugitives', value: 1 }],
+            selectedOptions: []
+        },
+        {
+            label: "émissions directes fugitives",
+            dialogueOptions: [{ label: 'Process et émissions fugitives', value: 1 }],
+            selectedOptions: []
+        },
+        {
+            label: "émission issues de la biomasse (sols et forêts)",
+            dialogueOptions: [{ label: 'UTCF', value: 1 }],
+            selectedOptions: []
+        }
+    ]);
+    const [energieList , setEnergieList] = useState([
+        { label: "Émissions indirectes liées à la consommation d'électricité",
+          dialogueOptions : [{label: 'Electricité', value: 1 } ] ,
+          selectedOptions: []
+        },
+        { label: "Émissions indirectes liées à la consommation d'énergie autre que l'électricité",
+          dialogueOptions : [{label: 'Réseau de chaleur et de froid', value: 1 } ],
+          selectedOptions: []  
+        }
+    ]);
+    const [deplacementList ,setDeplacementList] = useState([
+        { label : "Transport de marchandise amont",
+          dialogueOptions : [ {label : 'Transport de marchandises' , value : 1}],
+          selectedOptions: []  
+        },
+        { label : "Transport de marchandise aval",
+          dialogueOptions : [{ label : 'Transport de marchandises' , value : 1}],
+          selectedOptions: []  
+        }
+        ,
+        { label : "Déplacements domicile-travail",
+          dialogueOptions : [{ label : 'Transport de personnes' , value : 1}],
+          selectedOptions: []  
+        },
+        { label : "Déplacements des visiteurs et des clients",
+          dialogueOptions : [{ label : 'Transport de personnes' , value : 1}],
+          selectedOptions: [] 
+        },
+        { label : "Déplacements professionnels",
+          dialogueOptions : [{ label : 'Transport de personnes' , value : 1}],
+          selectedOptions: []  
+        }
+    ]);
+
+    const [produitsAchetesList , setProduitsAchetesList] = useState([
+        { label : "Achats de biens" , 
+          dialogueOptions : [{ label : 'Achats de biens' , value : 1}]  
+        },
+        { label : "Immobilisation de biens",
+          dialogueOptions : [{ label : 'Achats de biens' , value : 1}] 
+        },
+        { label : "Gestion des déchets",
+          dialogueOptions : [{ label : 'Traitement des déchets' , value : 1}]  
+        },
+        { label : "Actifs en leasing amont",
+          dialogueOptions : [{ label : 'None' , value : 1}]  
+        },
+        { label : "Achat de services",
+          dialogueOptions : [{ label : 'Achat de service' , value : 1}]  
+        },
+    ]);
+
+    const [ produitsVendusList , setProduitsVendusList] = useState([
+        { label : "Utilisation des produits vendus" , 
+          dialogueOptions : [{ label : 'None' , value : 1}]  
+        },
+        { label : "Actifs en leasing aval",
+          dialogueOptions : [{ label : 'None' , value : 1}] 
+        },
+        { label : "Fin de vie des produits vendus",
+          dialogueOptions : [{ label : 'None' , value : 1}]  
+        },
+        { label : "Investissements",
+          dialogueOptions : [{ label : 'None' , value : 1}]  
+        }
+    ]);
     const [activeStep, setActiveStep] = useState(0);
 
     const handleNext = () => {
@@ -108,7 +203,7 @@ function Calculateur() {
                     <Grid item height={'64px'} xs={12} sx={{ fontFamily: 'Inter, sans-serif' }}>
                         <AppBarComponent title="Calculateur" />
                     </Grid>
-                    <Grid item height={'auto'} xs={12} sx={{ background: '#F2F4F8', minHeight: 'calc(100vh - 64px)', fontFamily: 'Inter, sans-serif' }}>
+                    {showBilan && (<Grid item height={'auto'} xs={12} sx={{ background: '#F2F4F8', minHeight: 'calc(100vh - 64px)', fontFamily: 'Inter, sans-serif' }}>
 
                         <Grid container justifyContent={'center'} marginTop={'70px'}>
                             <Grid item xs={12} md={9.77}>
@@ -162,11 +257,11 @@ function Calculateur() {
 
 
                                         }}>
-                                            {activeStep === 0 && <EmissionsDirectes />}
-                                            {activeStep === 1 && <Energie />}
-                                            {activeStep === 2 && <Deplacement />}
-                                            {activeStep === 3 && <ProduitsAchetes />}
-                                            {activeStep === 4 && <ProduitsVendu />}
+                                            {activeStep === 0 && <EmissionsDirectes emissionsList={emissionsList} setEmissionsList={setEmissionsList}/>}
+                                            {activeStep === 1 && <Energie energieList={energieList} setEnergieList={setEnergieList}/>}
+                                            {activeStep === 2 && <Deplacement deplacementList={deplacementList} setDeplacementList={setDeplacementList}/>}
+                                            {activeStep === 3 && <ProduitsAchetes produitsAchetesList={produitsAchetesList} setProduitsAchetesList = {setProduitsAchetesList}/>}
+                                            {activeStep === 4 && <ProduitsVendu produitsVendusList={produitsVendusList}  setProduitsVendusList={setProduitsVendusList}/>}
                                             {activeStep === 5 && <AutresEmissions />}
                                         </Grid>
 
@@ -192,7 +287,16 @@ function Calculateur() {
                                 </Paper>
                             </Grid>
                         </Grid>
+                    </Grid>)}
+                    <Grid item height={'auto'} xs={12} sx={{ background: '#F2F4F8', minHeight: 'calc(100vh - 64px)', fontFamily: 'Inter, sans-serif' }}>
+
+                        <Grid container justifyContent={'center'} marginTop={'70px'}>
+                            <Grid item xs={12} md={9.77}>
+                                <Bilan showBilan={showBilan} setShowBilan={setShowBilan}/>
+                            </Grid>
+                        </Grid>
                     </Grid>
+                    
                 </Grid>
             </Grid>
         </Grid>

@@ -5,7 +5,7 @@ import SideBar from '../Components/SideBar';
 import FirstCard from '../Components/FirstCard';
 import CustomBarChart from '../Components/CustomBarChart';
 import Legend from '../Components/Lengend';
-
+import ThirdCard from '../Components/ThirdCard';
 
 function Acceuil() {
     const theme = useTheme();
@@ -30,7 +30,7 @@ function Acceuil() {
                                 </Paper>
                             </Grid>
 
-                            <Grid item xs={12} md={5.33} sx={{ height: 'auto' }}>
+                            <Grid item xs={12} md={5.05} sx={{ height: 'auto' , marginRight : '25px'}}>
                                 <Paper elevation={3} sx={{ height: '100%', borderRadius: '15px', boxShadow: '0px 8px 28px 0px #4859661A' }}>
                                             <Grid container direction="column" height={'auto'}>
 
@@ -57,9 +57,11 @@ function Acceuil() {
                                 </Paper>
                             </Grid>
 
-                            <Grid item xs={12} md={5.33} sx={{ height: '320px', padding: '10px' }}>
-                                <Paper elevation={3} sx={{ height: '100%', borderRadius: '15px', boxShadow: '0px 8px 28px 0px #4859661A' }}>
+                            <Grid item xs={12} md={5.06} sx={{ height: '320px' }}>
+                                <Paper elevation={3} sx={{ height: '100%', borderRadius: '15px', boxShadow: '0px 8px 28px 0px #4859661A'  , paddingLeft : '44px' , paddingRight : '44px' , paddingTop : '21px' , paddingBottom : '21px'}}>
+                                        <ThirdCard>
 
+                                        </ThirdCard>
                                 </Paper>
                             </Grid>
                         </Grid>

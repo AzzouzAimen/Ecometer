@@ -1,5 +1,5 @@
 // app.js
-
+const cors = require('cors');
 const express = require("express");
 const serverConfig = require("./config/server");
 const connectToDb = require("./db/index");
@@ -10,8 +10,10 @@ const bilanRoutes = require("./routes/bilanRoutes");
 const app = express();
 
 //connect to db
-connectToDb();
+connectToDb();app.use(cors());
+
 // Middleware to parse JSON bodies
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
