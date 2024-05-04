@@ -288,14 +288,14 @@ function Calculateur() {
                             </Grid>
                         </Grid>
                     </Grid>)}
-                    <Grid item height={'auto'} xs={12} sx={{ background: '#F2F4F8', minHeight: 'calc(100vh - 64px)', fontFamily: 'Inter, sans-serif' }}>
+                    {!showBilan && (<Grid item height={'auto'} xs={12} sx={{ background: '#F2F4F8', minHeight: 'calc(100vh - 64px)', fontFamily: 'Inter, sans-serif' }}>
 
                         <Grid container justifyContent={'center'} marginTop={'70px'}>
                             <Grid item xs={12} md={9.77}>
                                 <Bilan showBilan={showBilan} setShowBilan={setShowBilan}/>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Grid> ) }
                     
                 </Grid>
             </Grid>
