@@ -30,7 +30,7 @@ const Rapport = () => {
         <Grid container height={'auto'}>
           {/* Header */}
           <Grid item height={'64px'} xs={12} sx={{ fontFamily: 'Inter, sans-serif' }}>
-            <AppBarComponent title="Rapport" />
+            <AppBarComponent title={showFirstMain ? "Rapport" : "Rapport Detaillé"} />
           </Grid>
 
           {/* Main Content Body */}
