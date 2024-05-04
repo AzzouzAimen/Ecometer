@@ -39,7 +39,7 @@ const AdminSchema = new Schema({
         }
     },
     Role: {
-        type: String,
+        type: String, // can be: 'admin', 'superadmin'
         required: [true, 'Role field is required']
     }
 });
