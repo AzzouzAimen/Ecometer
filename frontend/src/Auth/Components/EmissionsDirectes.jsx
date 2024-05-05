@@ -305,6 +305,7 @@ function EmissionsDirectes() {
                           padding: "20px",
                           borderColor: "#6F6C8F",
                         }}
+                        key={optionIndex}
                       >
                         <Grid item md={12}>
                           <Grid container>
@@ -319,14 +320,13 @@ function EmissionsDirectes() {
                                 alignItems: "center",
                               }}
                             >
-                              <Typography
-                                key={optionIndex}
-                                style={Styles.contenuEtape}
-                              >
-                                {option}
+                              <Typography style={Styles.contenuEtape}>
+                                {option.item}
                               </Typography>
                               <CroixIcon
-                                onClick={() => SupprimerSelectedOption(option)}
+                                onClick={() =>
+                                  SupprimerSelectedOption(option.item)
+                                }
                               />
                             </Grid>
                             <Grid
@@ -341,28 +341,46 @@ function EmissionsDirectes() {
                                 Quantité :
                               </Typography>
                             </Grid>
-
                             <Grid item xs={12} md={10.4}>
                               <TextField
                                 variant="outlined"
                                 fullWidth
+                                value={option.quantity}
                                 sx={{
                                   borderRadius: "15px",
                                   mt: 1,
                                   mb: 2,
                                   "& .MuiOutlinedInput-notchedOutline": {
-                                    borderColor: "#969696 !important", // Couleur de la bordure
+                                    borderColor: "#969696 !important",
                                     borderRadius: "15px",
                                   },
                                   "&:hover .MuiOutlinedInput-notchedOutline": {
-                                    borderColor: "#969696 !important", // Couleur de la bordure en survol
+                                    borderColor: "#969696 !important",
                                     borderRadius: "15px",
                                   },
                                   "& .Mui-focused .MuiOutlinedInput-notchedOutline":
                                     {
-                                      borderColor: "#969696 !important", // Couleur de la bordure en focus
+                                      borderColor: "#969696 !important",
                                       borderRadius: "15px",
                                     },
+                                }}
+                                onChange={(e) => {
+                                  const updatedEmissionsList = [
+                                    ...emissionsList,
+                                  ];
+                                  updatedEmissionsList[
+                                    selectedEmissionIndex
+                                  ].selectedOptions[optionIndex].quantity =
+                                    e.target.value;
+                                  console.log(
+                                    updatedEmissionsList[selectedEmissionIndex]
+                                      .selectedOptions[optionIndex].item
+                                  );
+                                  console.log(
+                                    updatedEmissionsList[selectedEmissionIndex]
+                                      .selectedOptions[optionIndex].quantity
+                                  );
+                                  setEmissionsList(updatedEmissionsList);
                                 }}
                               />
                             </Grid>
