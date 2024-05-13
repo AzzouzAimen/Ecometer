@@ -3,6 +3,9 @@ import { Grid, Paper, Typography } from "@mui/material";
 import AppBarComponent from "../Components/AppBarComponent";
 import SideBar from "../Components/SideBar";
 import BilanDetails from "../Components/BilanDetails";
+import { PieChart  } from '@mui/x-charts/PieChart';
+import { BarChart } from '@mui/x-charts';
+import { BarChart as BarChartIcon, PieChart as PieChartIcon } from '@mui/icons-material'; 
 import axios from "axios";
 const Styles = {
   Detail: {
@@ -22,6 +25,11 @@ const Rapport = () => {
   const [scope1, setScope1] = useState(0);
   const [scope2, setScope2] = useState(0);
   const [scope3, setScope3] = useState(0);
+  const [showItem1, setShowItem1] = useState(true);
+
+  const toggleItem = () => {
+    setShowItem1(!showItem1);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -245,6 +253,75 @@ const Rapport = () => {
                             </Paper>
                           </Grid>
                         ))}
+                      </Grid>
+                    </Grid>
+                    <Grid item md={12} xs={12}>
+                      <Grid container justifyContent="center" alignItems="center">
+                        {showItem1 ? (
+                          <Grid item md={6} xs={12} sx={{display : 'flex' , flexDirection : 'column' , justifyContent :"center"}}>
+                           
+
+                            <IconButton onClick={toggleItem}>
+                              <PieChartIcon fontSize="large" style={{ marginRight: 10 }} /> 
+                            </IconButton>
+                            <div style={{ width: '100%', display: 'flex', justifyContent: 'center' ,alignItems : "center"}}> 
+                                 <BarChart
+                                    xAxis={[{ scaleType: 'band', data: ['Scope 1', 'Scope2', 'Scope 3'] }]}
+                                    series={[{ data: [4, 0, 0] }, { data: [0, 6, 0] }, { data: [0, 0, 5] }]}
+                                    colors={['#D62828', '#F77F00', '#FCBF49']}
+                                    width={404}
+                                    height={404}
+                                    slotProps={{
+                                      legend: {
+                                        labelStyle: {
+                                          tableLayout: 'fixed',
+                                        },
+                                        direction: 'row',
+                                        position: {
+                                          horizontal: 'middle',
+                                          vertical: 'bottom',
+                                        },
+                                      },
+                                    }}
+                                  />
+                            </div>
+                          </Grid>
+                        ) : (
+                          <Grid item md={6} xs={12} sx={{display : 'flex' , flexDirection : 'column' , justifyContent :"center"}}>
+                            {/* Contenu de l'item 2 */}
+                            <IconButton onClick={toggleItem}>
+                              <BarChartIcon fontSize="large" style={{ marginRight: 10 }} />
+                            </IconButton>
+                            <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}> 
+                                <PieChart
+                                  series={[
+                                    {
+                                      data: [
+                                        { id: 0, value: 10, label: 'Scope 1' },
+                                        { id: 1, value: 15, label: 'Scope 2' },
+                                        { id: 2, value: 20, label: 'Scope 3' },
+                                      ],
+                                    },
+                                  ]}
+                                  colors={['#D62828', '#F77F00', '#FCBF49']}
+                                  width={404}
+                                  height={404}
+                                  slotProps={{
+                                    legend: {
+                                      labelStyle: {
+                                        tableLayout: 'fixed',
+                                      },
+                                      direction: 'row',
+                                      position: {
+                                        horizontal: 'middle',
+                                        vertical: 'bottom',
+                                      },
+                                    },
+                                  }}
+                                />
+                              </div>
+                          </Grid>
+                        )}
                       </Grid>
                     </Grid>
                   </Paper>
