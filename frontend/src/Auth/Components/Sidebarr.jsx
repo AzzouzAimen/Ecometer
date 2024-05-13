@@ -6,6 +6,7 @@ import CalculateurIcon from './CalculateurIcon';
 import RapportIcon from './RapportIcon';
 import ObjectifIcon from './ObjectifIcon';
 import LogoutIcon from './LogoutIcon';
+import Logo from './Logo';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const ecometerTextStyle = {
@@ -39,8 +40,12 @@ const listItemStyle = {
   paddingLeft: '32px',
   marginBottom: '10px',
 };
-
-const SideBar = () => {
+const listItemStyle2 = {
+    paddingLeft: '32px',
+    marginBottom: '40px',
+    marginTop : '20px',
+  };
+const SideBarr = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -51,32 +56,33 @@ const SideBar = () => {
   return (
     <Grid container style={{ height: '100%', backgroundColor: '#003049' }}>
       <Grid item xs={12}>
-        <Typography variant="h5" align="center" gutterBottom marginTop={'22px'} style={ecometerTextStyle}>Ecometer</Typography>
-        <Typography variant="h6" gutterBottom style={accessTextStyle} marginLeft={'35px'} marginTop={'56px'} marginBottom={'20px'}>Accès Rapide</Typography>
+         <Grid container style={listItemStyle2}>
+                <Logo></Logo>
+         </Grid>
         <List component="nav" aria-label="icon list">
           <ListItem button selected={location.pathname === '/'} style={listItemStyle} onClick={() => handleListItemClick('/')}>
             <ListItemIcon style={{ color: '#fff' }}>
               <AccueilIcon />
             </ListItemIcon>
-            <ListItemText primary="Accueil" style={listItemTextStyle} />
+           
           </ListItem>
           <ListItem button selected={location.pathname === '/calculateur'} style={listItemStyle} onClick={() => handleListItemClick('/calculateur')}>
             <ListItemIcon style={{ color: '#fff' }}>
               <CalculateurIcon />
             </ListItemIcon>
-            <ListItemText primary="Calculateur" style={listItemTextStyle} />
+            
           </ListItem>
           <ListItem button selected={location.pathname === '/rapport'} style={listItemStyle} onClick={() => handleListItemClick('/rapport')}>
             <ListItemIcon style={{ color: '#fff' }}>
               <RapportIcon />
             </ListItemIcon>
-            <ListItemText primary="Rapport" style={listItemTextStyle} />
+           
           </ListItem>
           <ListItem button style={listItemStyle}>
             <ListItemIcon style={{ color: '#fff' }}>
               <ObjectifIcon/>
             </ListItemIcon>
-            <ListItemText primary="Objectifs" style={listItemTextStyle} onClick={() => handleListItemClick('/objectifs')}/>
+            
           </ListItem>
         </List>
       </Grid>
@@ -86,11 +92,10 @@ const SideBar = () => {
           <ListItemIcon style={{ color: '#fff' }}>
             <LogoutIcon />
           </ListItemIcon>
-          <ListItemText primary="Se déconnecter" style={{ ...listItemTextStyle, marginLeft: '8px' }} />
         </div>
       </Grid>
     </Grid>
   );
 };
 
-export default SideBar;
+export default SideBarr;
