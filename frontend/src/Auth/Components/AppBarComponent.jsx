@@ -4,6 +4,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { IoSettingsOutline } from "react-icons/io5";
+import Objectifs from '../Pages/Objectifs';
+import { useHistory } from 'react-router-dom';
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const styles = {
@@ -18,6 +21,7 @@ function AppBarComponent({ title }) {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const history = useHistory(); // Importer la fonction useHistory
 
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -27,6 +31,12 @@ function AppBarComponent({ title }) {
     const handleMenuClose = () => {
         setAnchorEl(null);
         setIsMenuOpen(false);
+    };
+
+    const handleSettingsClick = () => {
+        handleMenuClose();
+        // Redirection vers la page des objectifs
+        history.push('/objectifs');
     };
 
     return (
@@ -47,8 +57,6 @@ function AppBarComponent({ title }) {
                 )}
 
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    
-
                     <Typography
                         variant="h6"
                         component="div"
@@ -58,7 +66,7 @@ function AppBarComponent({ title }) {
                             lineHeight: '24px',
                             textAlign: 'center',
                             color: '#003049',
-                            margin: '0 20px', 
+                            margin: '0 20px',
                         }}
                     >
                         {title}
@@ -66,16 +74,15 @@ function AppBarComponent({ title }) {
                 </Box>
 
                 <Box>
-                <IconButton
+                    <IconButton
                         size="large"
                         edge="end"
-                        aria-label="account of current user" 
-
+                        aria-label="settings"
                         aria-controls="menu-appbar"
                         aria-haspopup="true"
-                        onClick={handleMenuOpen}
+                        onClick={handleSettingsClick} // Utiliser handleSettingsClick au lieu de handleMenuOpen
                     >
-                        <IoSettingsOutline style={{ color: '#1F263E', marginRight:{ md :' 41px' , xs : '21px' } }} />
+                        <IoSettingsOutline style={{ color: '#1F263E', marginRight: { md: ' 41px', xs: '21px' } }} />
                     </IconButton>
 
                     <IconButton
@@ -88,7 +95,7 @@ function AppBarComponent({ title }) {
                     >
                         <FontAwesomeIcon icon={faUserCircle} style={{ color: '#F68002' }} />
                     </IconButton>
-                    
+
                     <Menu
                         id="menu-appbar"
                         anchorEl={anchorEl}

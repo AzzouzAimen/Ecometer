@@ -16,7 +16,6 @@ import Acceuil from "./Auth/Pages/Accueil.jsx";
 import Rapport from "./Auth/Pages/Rapport.jsx";
 import Objectifs from "./Auth/Pages/Objectifs.jsx";
 import "./App.css";
-
 function App() {
   const isConnected = localStorage.getItem('isConnected'); // Gérer l'état de connexion ici
   return (
@@ -33,6 +32,7 @@ function App() {
           <Route path="/calculateur" element={<Calculateur />} />
           <Route path="/rapport" element={<Rapport />} />
           <Route path="/objectifs" element={<Objectifs />} />
+          
         </Routes>
       </QueryClientProvider>
     </BrowserRouter>
