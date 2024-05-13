@@ -13,7 +13,9 @@ const router = express.Router();
 
 router.post("/calculate-bilan", updateAndCalculateBilan);
 router.post("/create-bilan", createBilan);
+
 // get requests
+
 router.get("/:clientId/:year", getBilan);
 router.get("/:clientId", getAllBilans);
 

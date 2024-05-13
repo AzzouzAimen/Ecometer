@@ -23,7 +23,12 @@ const emissionPostSchema = new mongoose.Schema({
   category: String,
   postName: String,
   scope: String,
+  uncertainty: { type: Number, default: 0 },
   emissions: { type: Number, default: 0 }, // Default value is 0 for emissions
+  // other gasses (CH4, N2O, CO2) default is "NC/0" (non calculé)
+  CO2: { type: Number, default: 0 },
+  CH4: { type: Number, default: 0 },
+  N2O: { type: Number, default: 0 },
   categoryElements: {
     type: [usedElements],
     default: [], // default value is an empty array , the model depends on the category
@@ -34,6 +39,7 @@ const emissionPostSchema = new mongoose.Schema({
 const carbonFootprintSchema = new mongoose.Schema({
   clientId: { type: mongoose.Schema.Types.ObjectId, ref: "Client" },
   emissionPosts: [emissionPostSchema],
+  totalUncertainty: { type: Number, default: 0 },
   year: { type: Number, default: currentYear },
   totalEmissions: { type: Number, default: 0 }, // Default value is 0 for total emissions
   createdAt: { type: Date, default: Date.now }, // Default value is the current date and time

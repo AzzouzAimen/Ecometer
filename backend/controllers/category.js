@@ -35,7 +35,9 @@ const mainCategories = [
 const getCategoryElements = async (req, res) => {
   // Define API endpoint to handle user-selected categories
   try {
+    console.log("request send");
     const userSelectedCategories = req.body.userSelectedCategories;
+    console.log(userSelectedCategories);
     // If userSelectedCategories is empty, return the default categories
     if (
       !userSelectedCategories ||
@@ -44,7 +46,7 @@ const getCategoryElements = async (req, res) => {
     ) {
       return res.status(400).json({ msg: "enter Categories please" });
     }
-
+    
     // Query MongoDB to get the next level categories
     const { nextLevelCategories, matchingDocuments, existingCategory } =
       await getNextLevelCategories(userSelectedCategories);
@@ -53,6 +55,7 @@ const getCategoryElements = async (req, res) => {
     if (existingCategory === false) {
       return res.status(404).json({ msg: " Invalid Categories " });
     }
+    console.log(matchingDocuments.length);
     res.json({
       nextCategories: nextLevelCategories,
       matchingDocuments: matchingDocuments,
@@ -67,11 +70,10 @@ const getCategoryElements = async (req, res) => {
 async function getNextLevelCategories(userSelectedCategories) {
   let nextLevelCategories = new Set();
   let existingCategory = true;
-  const mainCategory = userSelectedCategories[0].replace(/\s+/g, '');
+  const mainCategory = userSelectedCategories[0].replace(/\s+/g, "");
   let Model;
 
   switch (mainCategory) {
-
     case "Combustibles":
       Model = categoriesConnection.model("Combustibles");
       break;
@@ -113,7 +115,7 @@ async function getNextLevelCategories(userSelectedCategories) {
         existingCategory,
       };
   }
-  
+
   // Query MongoDB using Mongoose to find next level categories
   const matchingDocuments = await Model.find({
     categories: { $all: userSelectedCategories },
@@ -129,7 +131,5 @@ async function getNextLevelCategories(userSelectedCategories) {
   nextLevelCategories = Array.from(nextLevelCategories);
   return { nextLevelCategories, matchingDocuments, existingCategory };
 }
-
-
 
 module.exports = { getCategoryElements };

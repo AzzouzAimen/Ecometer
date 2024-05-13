@@ -1,28 +1,41 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './Login/Pages/Login.jsx';
-import Calculateur from './Auth/Pages/Calculateur.jsx';
-import Acceuil from './Auth/Pages/Accueil.jsx';
-import Rapport from './Auth/Pages/Rapport.jsx';
-import Objectifs from './Auth/Pages/Objectifs.jsx';
-import Parametres from './Auth/Pages/Parametres.jsx';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const App = () => {
-  const isConnected = true; // Gérer l'état de connexion ici
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    },
+  },
+});
+import Home from "./landingPage/Home";
+import Login from "./logIn/Login";
+import Signup from "./signUp/Signup";
+import Calculateur from "./Auth/Pages/Calculateur.jsx";
+import Acceuil from "./Auth/Pages/Accueil.jsx";
+import Rapport from "./Auth/Pages/Rapport.jsx";
+import "./App.css";
 
+function App() {
+  const isConnected = localStorage.getItem('isConnected'); // Gérer l'état de connexion ici
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={isConnected ? <Acceuil /> : <Navigate to="/login" replace />} />
-        <Route path="/calculateur" element={isConnected ? <Calculateur /> : <Navigate to="/login" replace />} />
-        <Route path="/rapport" element={isConnected ? <Rapport /> : <Navigate to="/login" replace />} />
-        <Route path="/objectifs" element={isConnected ? <Objectifs /> : <Navigate to="/login" replace />} />
-        <Route path="/parametres" element={isConnected ? <Parametres /> : <Navigate to="/login" replace />} />
-      </Routes>
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/acceuil"
+            element={isConnected ? <Acceuil /> : <Navigate to="/login" />}
+          />
+          <Route path="/calculateur" element={<Calculateur />} />
+          <Route path="/rapport" element={<Rapport />} />
+        </Routes>
+      </QueryClientProvider>
     </BrowserRouter>
   );
-};
+}
 
 export default App;

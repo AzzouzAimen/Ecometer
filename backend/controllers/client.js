@@ -1,8 +1,9 @@
 const Client = require("../Models/Client");
 const VerificationToken = require("../Models/verificationToken");
 const ResetToken = require("../Models/resetToken");
-const crypto = require('crypto');
-const { createRandomBytes } = require('../utils/helper')
+const crypto = require("crypto");
+const { createRandomBytes } = require("../utils/helper");
+const jwt = require('jsonwebtoken');
 const {
   generateOTP,
   mailTransport,
@@ -11,7 +12,6 @@ const {
   passwordResetTemplate,
   passwordResetSuccessTemplate,
 } = require("../utils/mail");
-const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 const { isValidObjectId } = require("mongoose");
@@ -31,6 +31,7 @@ const registerClient = async (req, res) => {
 
   try {
     // Create a new client using Model.create()
+    console.log(req.body);
     const newClient = new Client({
       name,
       email,
@@ -80,10 +81,12 @@ const registerClient = async (req, res) => {
 // login the client
 const loginClient = async (req, res) => {
   const { email, password } = req.body;
+  try{
+
   if (!email.trim() || !password.trim()) {
     return res.status(400).json({ msg: "Email and password are required" });
   }
-
+  console.log(email);
   const client = await Client.findOne({ email });
   if (!client) {
     return res.status(404).json({ msg: "User not found" });
@@ -91,26 +94,28 @@ const loginClient = async (req, res) => {
 
   const isMatched = await client.comparePassword(password);
   if (!isMatched) {
-    return res.status(400).json({ msg: "Invalid password" });
+    return res.status(401).json({ msg: "Invalid Credentials" });
   }
 
-  jwt.sign(
-    { clientId: client._id },
-    process.env.JWT_SECRET,
-    { expiresIn: "1d" },
-    (err, token) => {
-      if (err) {
-        console.error("Error generating token:", err);
-        return res.status(500).json({ msg: "Server error" });
-      }
-      res.status(200).json({ msg: "Login successful", token });
-    }
-  );
+  const token = jwt.sign({ clientId: client._id, username: client.name }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+  
+  res.status(200).json({
+    msg: "Login successful",
+    token: token, 
+  });
+
+}catch(error){
+  console.error("Error:", error);
+  return res.status(500).json({ error: "Internal error" });
+}
 };
 
 const verifyEmail = async (req, res) => {
   const { clientId, otp } = req.body;
-
+  
+  //otp should be a string
   if (!clientId || !otp.trim()) {
     return res.status(400).json({ msg: "Client ID and OTP are missing" });
   }
@@ -160,7 +165,6 @@ const verifyEmail = async (req, res) => {
   }
 };
 
-
 // Forgot Password
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -174,9 +178,13 @@ const forgotPassword = async (req, res) => {
   }
 
   // look if the user has already sent a reset password request
-  const token = await ResetToken.findOne({owner: client._id});
+  const token = await ResetToken.findOne({ owner: client._id });
   if (token) {
-    return res.status(400).json({ msg: "A Password reset email has already been sent. Please check ur email " });
+    return res
+      .status(400)
+      .json({
+        msg: "A Password reset email has already been sent. Please check ur email ",
+      });
   }
 
   const newToken = await createRandomBytes();
@@ -193,65 +201,57 @@ const forgotPassword = async (req, res) => {
     from: '"Ecometer" <ecometer.team@gmail.com>',
     to: client.email,
     subject: "Password Reset link",
-    html: passwordResetTemplate(client.name,process.env.PWD_RESET_LINK),
+    html: passwordResetTemplate(client.name, process.env.PWD_RESET_LINK),
   });
-  res.status(200).json({msg: 'reset Email sent successfully'});
+  res.status(200).json({ msg: "reset Email sent successfully" });
+};
 
+const resetPassword = async (req, res) => {
+  const { clientId, newPassword } = req.body;
 
+  try {
+    if (!clientId || !newPassword.trim()) {
+      return res
+        .status(400)
+        .json({ msg: "Client ID and new Password are missing" });
+    }
 
-}
+    if (!isValidObjectId(clientId))
+      return res.status(400).json({ msg: "Invalid client ID" });
 
+    const client = await Client.findById(clientId);
+    if (!client) {
+      return res.status(404).json({ msg: "User not found" });
+    }
 
-const resetPassword = async (req,res)=> {
+    const token = await ResetToken.findOne({ owner: client._id });
 
-  const { clientId , newPassword } = req.body;
+    if (!token) {
+      return res.status(404).json({ msg: "Token not found" });
+    }
 
-try{
-  if (!clientId || !newPassword.trim()) {
-    return res.status(400).json({ msg: "Client ID and new Password are missing" });
+    client.password = newPassword;
+    await client.save();
+
+    await ResetToken.findByIdAndDelete(token._id);
+
+    // Send reset password email
+    mailTransport().sendMail({
+      from: '"Ecometer" <ecometer.team@gmail.com>',
+      to: client.email,
+      subject: "Password Reset successful",
+      html: passwordResetSuccessTemplate(client.name),
+    });
+
+    return res.status(200).json({ msg: "Password reset successfully" });
+  } catch (e) {
+    return res.status(500).json({ msg: e.message });
   }
-
-  if (!isValidObjectId(clientId))
-    return res.status(400).json({ msg: "Invalid client ID" });
-
-  const client = await Client.findById(clientId);
-  if (!client) {
-    return res.status(404).json({ msg: "User not found" });
-  }
-
-  const token = await ResetToken.findOne({ owner: client._id });
-
-  if (!token) {
-    return res.status(404).json({ msg: "Token not found" });
-  }
-
-  client.password = newPassword;
-  await client.save();
-
-  await ResetToken.findByIdAndDelete(token._id);
-
-   // Send reset password email
-   mailTransport().sendMail({
-    from: '"Ecometer" <ecometer.team@gmail.com>',
-    to: client.email,
-    subject: "Password Reset successful",
-    html: passwordResetSuccessTemplate(client.name),
-  });
-
-  return res.status(200).json({ msg: "Password reset successfully" });
-
-}
-catch(e){
-  return res.status(500).json({msg: e.message})
-}
-
-
-}
+};
 
 // get a clients profile
-
-const getClientProfile = async (req,res) => {
-  const { clientId } = req.params;
+const getClientProfile = async (req, res) => {
+  const clientId = req.clientId;
 
   if (!isValidObjectId(clientId)) {
     return res.status(400).json({ msg: "Invalid client ID" });
@@ -263,17 +263,24 @@ const getClientProfile = async (req,res) => {
       return res.status(404).json({ msg: "Client not found" });
     }
     return res.status(200).json(client);
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error:", error);
     return res.status(500).json({ error: "Internal error" });
   }
-}
+};
 
 // update a clients profile
-
-const updateClientProfile = async (req,res) => {
-  const { clientId, name, email, numberOfEmployees, industry, address, numberOfLocations, structure } = req.body;
+const updateClientProfile = async (req, res) => {
+  const {
+    name,
+    email,
+    numberOfEmployees,
+    industry,
+    address,
+    numberOfLocations,
+    structure,
+  } = req.body;
+  const clientId = req.clientId; // Added this line
 
   if (!isValidObjectId(clientId)) {
     return res.status(400).json({ msg: "Invalid client ID" });
@@ -295,45 +302,60 @@ const updateClientProfile = async (req,res) => {
 
     await client.save();
     return res.status(200).json(client);
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error:", error);
     return res.status(500).json({ error: "Internal error" });
   }
-}
+};
+
+// update client password
+const updateClientPassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const clientId = req.clientId; // Added this line
+
+  if (!isValidObjectId(clientId)) {
+    return res.status(400).json({ msg: "Invalid client ID" });
+  }
+  try {
+    const client = await Client.findById(clientId);
+    if (!client) {
+      return res.status(404).json({ msg: "Client not found" });
+    }
+    const isMatched = await client.comparePassword(oldPassword);
+    if (!isMatched) {
+      return res.status(400).json({ msg: "Invalid password" });
+    }
+    client.password = newPassword;
+    await client.save();
+    return res.status(200).json(client);
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({ error: "Internal error" });
+  }
+};
 
 // delete a client
 
-const deleteClient = async (req,res) => {
-  const { clientId } = req.params;
+const deleteClient = async (req, res) => {
+  const clientId = req.clientId; // Added this line
 
   if (!isValidObjectId(clientId)) {
     return res.status(400).json({ msg: "Invalid client ID" });
   }
 
   try {
-    const client = await
-    Client.findByIdAndDelete(clientId);
+    const client = await Client.findByIdAndDelete(clientId);
     if (!client) {
       return res.status(404).json({ msg: "Client not found" });
     }
     return res.status(200).json({ msg: "Client deleted successfully" });
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error:", error);
     return res.status(500).json({ error: "Internal error" });
   }
-}
+};
 
-
-
-
-
-
-
-
-
-module.exports = { 
+module.exports = {
   registerClient,
   loginClient,
   verifyEmail,
@@ -341,4 +363,6 @@ module.exports = {
   resetPassword,
   getClientProfile,
   updateClientProfile,
-  deleteClient,};
+  deleteClient,
+  updateClientPassword,
+};

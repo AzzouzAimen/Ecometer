@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Typography, Grid, Button, Paper, useMediaQuery, useTheme } from '@mui/material';
+
+import {Typography, Grid,  Paper, useMediaQuery, useTheme } from '@mui/material';
 import AppBarComponent from '../Components/AppBarComponent';
 import SideBar from '../Components/SideBar';
 import FirstCard from '../Components/FirstCard';
@@ -30,12 +30,12 @@ function Acceuil() {
                                 </Paper>
                             </Grid>
 
-                            <Grid item xs={12} md={5.05} sx={{ height: 'auto' , marginRight : {md : '25px'}}}>
+                            <Grid item xs={12} md={5.05} sx={{ height: 'auto' , marginRight : '25px'}}>
                                 <Paper elevation={3} sx={{ height: '100%', borderRadius: '15px', boxShadow: '0px 8px 28px 0px #4859661A' }}>
                                             <Grid container direction="column" height={'auto'}>
 
                                                             <Grid item >
-                                                            <Typography variant="h2" sx={{ fontFamily: 'Eudoxus, Sans-serif', fontSize: '26px', fontWeight: '500', lineHeight: 1.15 ,marginBottom:'35px' , marginLeft : '40px',marginTop : '19px'}}>
+                                                            <Typography variant="h2" sx={{ fontFamily: 'Eudoxus Sans , sans-serif', fontSize: 26, fontWeight: 700, lineHeight: 1.15 ,marginBottom:'35px' , marginLeft : '40px',marginTop : '19px'}}>
                                                                 Aperçu des émissions
                                                             </Typography>
                                                             </Grid>
