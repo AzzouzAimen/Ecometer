@@ -1,6 +1,1 @@
-{
-  "dependencies": {
-    "@mui/x-charts": "^7.4.0",
-    "antd": "^5.17.0"
-  }
-}
+{}

@@ -3,10 +3,11 @@ import { Grid, Paper, Typography } from "@mui/material";
 import AppBarComponent from "../Components/AppBarComponent";
 import SideBar from "../Components/SideBar";
 import BilanDetails from "../Components/BilanDetails";
-import { PieChart  } from '@mui/x-charts/PieChart';
-import { BarChart } from '@mui/x-charts';
-import { BarChart as BarChartIcon, PieChart as PieChartIcon } from '@mui/icons-material'; 
 import axios from "axios";
+import { PieChart } from '@mui/x-charts/PieChart';
+import { BarChart } from '@mui/x-charts';
+import { BarChart as BarChartIcon, PieChart as PieChartIcon } from '@mui/icons-material';
+
 const Styles = {
   Detail: {
     fontFamily: "Inter",
