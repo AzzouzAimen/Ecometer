@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -15,6 +14,7 @@ import Signup from "./signUp/Signup";
 import Calculateur from "./Auth/Pages/Calculateur.jsx";
 import Acceuil from "./Auth/Pages/Accueil.jsx";
 import Rapport from "./Auth/Pages/Rapport.jsx";
+import Objectifs from "./Auth/Pages/Objectifs.jsx";
 import "./App.css";
 
 function App() {
@@ -32,6 +32,7 @@ function App() {
           />
           <Route path="/calculateur" element={<Calculateur />} />
           <Route path="/rapport" element={<Rapport />} />
+          <Route path="/objectifs" element={<Objectifs />} />
         </Routes>
       </QueryClientProvider>
     </BrowserRouter>

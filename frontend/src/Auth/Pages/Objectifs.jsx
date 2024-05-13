@@ -95,13 +95,16 @@ const Objectifs = () => {
                                     <Typography style={Styles.Text11}>Adoptez les énergies renouvelables : investissez dans des options d’énergie solaire, éolienne ou hydroélectrique</Typography>
                                 </li>
                                 <li>
-                                    <Typography style={Styles.Text11}>Adoptez les énergies renouvelables : investissez dans des options d’énergie solaire, éolienne ou hydroélectrique</Typography>
+                                    <Typography style={Styles.Text11}>Réduire, réutiliser, recycler : minimisez les déchets en réduisant les emballages, en réutilisant les matériaux et en recyclant.
+</Typography>
                                 </li>
                                 <li>
-                                    <Typography style={Styles.Text11}>Adoptez les énergies renouvelables : investissez dans des options d’énergie solaire, éolienne ou hydroélectrique</Typography>
+                                    <Typography style={Styles.Text11}>Écologisez votre chaîne d’approvisionnement : encouragez les fournisseurs à adopter des pratiques durables et à optimiser la logistique.
+</Typography>
                                 </li>
                                 <li>
-                                    <Typography style={Styles.Text11}>Adoptez les énergies renouvelables : investissez dans des options d’énergie solaire, éolienne ou hydroélectrique</Typography>
+                                    <Typography style={Styles.Text11}>Compenser les émissions inévitables : investissez dans des projets vérifiés de compensation carbone pour compenser les émissions inévitables.
+</Typography>
                                 </li>
                              </ul>
                            </Grid>
@@ -116,5 +119,4 @@ const Objectifs = () => {
     </Grid>
   );
 };
-
 export default Objectifs;

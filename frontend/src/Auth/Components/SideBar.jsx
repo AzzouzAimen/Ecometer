@@ -108,7 +108,7 @@ const SideBar = () => {
             </ListItemIcon>
             <ListItemText primary="Rapport" style={listItemTextStyle} />
           </ListItem>
-          <ListItem button style={listItemStyle}>
+          <ListItem button style={listItemStyle} onClick={() => handleListItemClick("/objectifs")}>
             <ListItemIcon style={{ color: "#fff" }}>
               <ObjectifIcon />
             </ListItemIcon>
