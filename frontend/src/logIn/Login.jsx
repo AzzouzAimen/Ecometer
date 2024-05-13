@@ -71,7 +71,7 @@ function Login() {
               </div>
               <div className="w-[82%] h-[4vh] mb-[3vh] justify-end items-center flex">
                 <a
-                  href="/#"
+                  href="/forgetpassword"
                   className="text-right  text-sky-600 text-[1.9vh] font-sans font-normal  "
                 >
                   Mot de passe oublié
