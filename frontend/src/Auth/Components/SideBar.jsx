@@ -102,7 +102,12 @@ const SideBar = () => {
             </ListItemIcon>
             <ListItemText primary="Rapport" style={listItemTextStyle} />
           </ListItem>
-          <ListItem button style={listItemStyle}>
+          <ListItem
+            button
+            selected={location.pathname === "/objectifs"}
+            style={listItemStyle}
+            onClick={() => handleListItemClick("/objectifs")}
+          >
             <ListItemIcon style={{ color: "#fff" }}>
               <ObjectifIcon />
             </ListItemIcon>
